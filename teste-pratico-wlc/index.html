@@ -1,0 +1,142 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Login</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: lightgray;
+        padding: 20px;
+        border-radius: 10px;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      #h2title {
+        align-self: flex-start;
+      }
+
+      .password-container {
+        width: 100%;
+        display: flex;
+        position: relative;
+        flex-direction: row;
+      }
+
+      .eye-icon {
+        position: absolute;
+        top: 20%;
+        right: 10
+      }
+
+      .button {
+        width: 100%;
+        padding: 10px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      #mensagem {
+        color: red;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2 id="h2title">Login</h2>
+      <form id="loginForm">
+        <input type="text" id="login" placeholder="Usuário" required />
+        <div class="password-container">
+          <input type="password" id="senha" placeholder="Senha" class="password-container" required/>
+          <span class="eye-icon">
+            <i id="icon" class="fa-regular fa-eye"></i>
+
+          </span>
+
+        </div>
+        <button class="button" id="button" type="submit">Entrar</button>
+        <!-- mensagem de erro -->
+        <div id="mensagem"></div>
+      </form>
+    </div>
+
+    <script>
+      // Lista de usuários
+      const users = [
+        { login: "joao_silva", senha: "senha123" },
+        { login: "maria_oliveira", senha: "segredo456" },
+        { login: "pedro_santos", senha: "minhaSenha789" },
+        { login: "ana_costa", senha: "senhaForte!@#" },
+        { login: "lucas_ferreira", senha: "passw0rd987" },
+      ];
+      console.log(users)
+
+      // Evento para capturar o envio do formulário
+      document
+      .getElementById("loginForm")
+      .addEventListener("submit", function (event) {
+        // prevenir comportamento padrão
+        event.preventDefault();
+
+        var login = document.getElementById("login").value;
+        let senha = document.getElementById("senha").value;
+        const mensagem = document.getElementById('mensagem');
+
+        // resetar o estado de erro
+        mensagem.style.display = 'none'
+        mensagem.textContent = ''
+
+        
+        // Verificar se o usuário existe no array e a senha está correta
+        const user = users.find(user => user.login === login && user.senha === senha);
+        
+        
+        // Exibir a mensagem de acordo com o resultado
+        if (user) {
+          alert('Login bem-sucedido')
+          // limpar os campos após o login
+          document.getElementById("login").value = ""
+          document.getElementById("senha").value = ""
+        } else {
+          mensagem.textContent = 'Usuário ou senha inválidos'
+          mensagem.style.display = 'block'
+          // limpar o campo de senha após tentativa falha
+          document.getElementById("senha").value = ""
+        }
+      });
+      // Evento para controlar a visao da senha
+      const icon = document.getElementById("icon") 
+
+      icon.addEventListener('click', function(e) {
+        senha.type = senha.type === 'password' ? 'text' : 'password'
+        icon.className = icon.className == 'fa-regular fa-eye' ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye'
+      })
+    </script>
+  </body>
+</html>
