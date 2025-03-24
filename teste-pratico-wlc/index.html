@@ -113,11 +113,11 @@
         mensagem.textContent = ''
 
         
-        // Verificar se o usuário existe no array e a senha está correta
+        // verificar se o usuário existe no array e a senha está correta
         const user = users.find(user => user.login === login && user.senha === senha);
         
         
-        // Exibir a mensagem de acordo com o resultado
+        // exibir a mensagem de acordo com o resultado
         if (user) {
           alert('Login bem-sucedido')
           // limpar os campos após o login
